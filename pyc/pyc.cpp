@@ -318,6 +318,8 @@ int main(int argc, char* argv[])
 
 	py_run(tstate, R"(
 import mob
+import pymodule
+import zlib
 
 def py_callback(n, s):
 	print('py_callback gets called')
@@ -334,6 +336,11 @@ lmob = mob.mob(3, 3)
 print(lmob)
 
 mob.callback(py_callback)
+
+data = b'raw data'
+compressed = zlib.compress(data)
+print('compressed: ', compressed)
+print('decompressed: ', pymodule.decompress(compressed))
 )");
 
 	// call from c
